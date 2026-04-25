@@ -609,3 +609,67 @@ Eine extrem kosteneffiziente Maßnahme ("Hardware-Hardening") zum physischen Ver
 
 *** Alternativen
 - Abkleben durch industrielles Gewebeband
+
+* Software-Architektur
+
+** Hypervisor: Proxmox VE (Virtual Environment)
+Als Basis-Betriebssystem (Bare-Metal) kommt Proxmox VE zum Einsatz. Proxmox basiert auf dem als extrem stabil geltenden Debian GNU/Linux (Stand 04/2026: Debian 13 "Trixie"). Es fungiert als Hypervisor und verwaltet die gesamten Hardwareressourcen, den ZFS-Speicherpool sowie die virtuellen Maschinen und Container.
+
+*** Vorteile für das Projekt
+- *Lizenzkostenfrei:* Das System ist vollständig Open Source (AGPLv3) und darf uneingeschränkt im schulischen Umfeld eingesetzt werden.
+- *ZFS & Snapshots (Lebensversicherung):* Das ZFS-Dateisystem schützt vor schleichender Datenkorruption. Durch automatisierte Snapshots kann der komplette Serverzustand bei Fehlkonfigurationen in Sekundenschnelle auf einen funktionierenden Stand zurückgerollt werden.
+- *Ressourceneffizienz:* Durch den Einsatz von Linux-Containern (LXC) anstelle von vollvirtualisierten VMs entstehen praktisch keine Leistungseinbußen gegenüber einem Bare-Metal-Betrieb. Dies schont die auf 65W gedrosselte CPU und reduziert die Abwärme im Spind.
+- *Usability:* Die Bedienung erfolgt über eine webbasierte grafische Oberfläche (GUI) mit aussagekräftigen Diagrammen, was die Hemmschwelle für die lokale Administration deutlich senkt.
+
+** Kernsystem: LTSP (Linux Terminal Server Project)
+Dies ist das Herzstück des ICT-Rooms und läuft als isolierter LXC-Container auf dem Proxmox-Host. Anstatt 20 in die Jahre gekommene HP-Rechner einzeln mit Software zu bespielen und zu warten, fungieren diese Hardware-Clients nur noch als Ein- und Ausgabeterminals ("Thin Clients").
+
+- *Wartungsfreiheit (KISS-Prinzip):* Die gesamte Client-Software (Desktop-Umgebung, LibreOffice, CAD-Tools für die Gewerke) liegt in einem einzigen Master-Image auf dem Server. Updates müssen nur exakt einmal auf dem Server eingespielt werden. Beim nächsten Bootvorgang arbeiten sofort alle 20 Schüler mit der neuen Version.
+- *Schülerverwaltung:* Die Benutzerverwaltung (Authentifizierung und Home-Verzeichnisse) findet pragmatisch lokal im LTSP-Container statt. Dies lässt sich bei Schuljahresbeginn ("60 rein, 60 raus") über simple Skripte automatisieren.
+- *Sicherheit:* Da die Clients keine lokalen Festplatten mehr nutzen, sind sie immun gegen Vireninfektionen durch USB-Sticks. Nach einem Neustart des Clients ist das System wieder im sauberen Ursprungszustand.
+
+** Optionale Dienste (Phase 2)
+Um das System initial so simpel wie möglich zu halten, werden weitere Dienste in eigenen, ressourcenschonenden Containern strikt vom LTSP-Kernsystem getrennt betrieben:
+- *Fileserver (Samba):* Zur Bereitstellung zentraler Austauschlaufwerke für klassenübergreifende Projekte oder Unterrichtsmaterial.
+- *Lokales Intranet:* Ein lokaler Webserver für ein Schul-Wiki oder Offline-Kopien von Dokumentationen (z.B. Wikipedia), um die Mobilfunk-Bandbreite zu schonen.
+
+
+* Netzwerk-Logik & Routing (MikroTik RouterOS)
+
+Der MikroTik hAP ax3 fungiert nicht nur als physikalische Verbindung zum Internet, sondern als zentrales "Gehirn" für die Netzwerksicherheit und den Datenfluss. Das Betriebssystem RouterOS übernimmt dabei folgende geschäftskritische Konzepte:
+
+** DHCP & PXE-Boot (Die Schaltzentrale)
+Anstatt den Server mit Netzwerk-Diensten zu überladen, fungiert der Router als alleiniger DHCP-Server ("Single Source of Truth") für das gesamte Klassenzimmer. 
+Wenn ein festplattenloser Schüler-PC eingeschaltet wird, fordert er beim Router eine IP-Adresse an. Der Router teilt dem Client über spezifische DHCP-Parameter (Option 66/67) nicht nur die IP-Adresse mit, sondern übergibt ihm direkt die IP-Adresse des LTSP-Servers. Der Client weiß somit sofort, dass er sich seinen Bootloader via TFTP vom Server holen muss, um das Betriebssystem über das Netzwerk zu laden.
+
+** Firewalling & Netzwerk-Isolation
+Der Router trennt die verschiedenen Nutzergruppen der Schule auf Protokollebene strikt voneinander ab (Subnetting / VLANs), um Sicherheitsrisiken zu minimieren.
+- *Schülernetzwerk (LAN):* Die Thin-Clients im ICT-Raum haben Zugriff auf den lokalen Server und das Internet.
+- *Lehrernetzwerk:* Ein administrativ getrenntes Netz für die Dozenten.
+- *Regelwerk (Drop-Rule):* Die Firewall des Routers blockiert jeglichen Datenverkehr, der vom Schüler-Netzwerk (oder dem WLAN) in Richtung des Lehrernetzwerks initiiert wird. Die administrativen Daten der Lehrer sind somit vor Zugriffsversuchen aus dem Klassenzimmer physisch geschützt.
+
+** Bandbreiten-Management (Traffic Shaping)
+Da der Internetzugang über einen LTE/5G-Mobilfunkrouter (Airtel) erfolgt, ist die Bandbreite ein teures und limitiertes Gut. Ohne Regulierung könnte ein einziger Schüler durch einen großen Download das Internet für die restlichen 19 Rechner lahmlegen.
+- *Queues (Warteschlangen):* Der MikroTik-Router limitiert den maximalen Down- und Upstream pro Schüler-IP-Adresse. 
+- *Fair-Use-Policy:* Die verfügbare Gesamtbandbreite wird dynamisch und fair auf alle aktiven Nutzer aufgeteilt. Video-Streaming-Dienste können bei Bedarf durch Firewall-Regeln komplett gedrosselt oder blockiert werden, um die Leitung für Text- und Code-Recherchen freizuhalten.
+
+** WLAN-Architektur (Isolated Clients)
+Das integrierte WLAN des hAP ax3 wird den Schülern als kostenloser Hotspot zur Verfügung gestellt, ist jedoch stark reglementiert.
+- *Client Isolation (AP Isolation):* Diese Funktion wird zwingend aktiviert. Sie verhindert, dass WLAN-Geräte (z.B. private Smartphones der Schüler) untereinander kommunizieren können. Dies unterbindet die Verbreitung von Malware zwischen den Mobilgeräten und verhindert Netzwerkangriffe (wie ARP-Spoofing) innerhalb der Schülerschaft.
+- Das WLAN wird netzwerktechnisch analog zum LAN behandelt: Zugriff auf das Internet ist (bandbreitenbeschränkt) erlaubt, Zugriffe auf das Lehrernetzwerk sind kategorisch gesperrt.
+  
+** Fernwartung & VPN (WireGuard über CGNAT)
+Da die Internetanbindung der Schule über einen Mobilfunkrouter (Airtel) erfolgt, erhält der MikroTik-Router keine öffentliche, von außen erreichbare IPv4-Adresse (Carrier-Grade NAT). Klassische Fernwartungsansätze wie DynDNS oder Port-Forwarding sind somit technisch ausgeschlossen. Die Lösung basiert auf einem aktiven WireGuard-Tunnel.
+
+- *Das Tunnel-Konzept:* Der MikroTik hAP ax3 in Marangu agiert als aktiver Client. Er baut einen dauerhaften, verschlüsselten WireGuard-Tunnel zu einem festen Endpunkt in Deutschland auf (z. B. einem kostengünstigen Cloud-VPS oder dem Heimserver des Administrators). 
+- *Persistent Keepalive:* Damit der Tunnel durch die NAT-Firewalls des Mobilfunkanbieters dauerhaft offengehalten wird, sendet der MikroTik regelmäßige Keepalive-Pakete ("Herzschlag"). Reißt die Mobilfunkverbindung ab, baut der Router den Tunnel bei Wiederkehr des Netzes sofort selbstständig neu auf.
+- *Zentrales Management-Routing:* Über diesen etablierten Tunnel erhält der Administrator aus Deutschland vollständigen und sicheren Zugriff auf das lokale Schulnetzwerk, als befände er sich physisch im Klassenraum.
+
+*** Abgedeckte Fernwartungs-Szenarien
+Über das WireGuard-Routing werden drei kritische Management-Ebenen abgedeckt:
+1. *Netzwerk-Ebene:* Vollzugriff auf das MikroTik RouterOS (WinBox/SSH) zur Anpassung von Firewall-Regeln, Bandbreiten-Limits oder zur Diagnose bei Verbindungsausfällen.
+2. *Software-Ebene:* Zugriff auf das Web-Interface und die Kommandozeile (SSH) des Proxmox-Hypervisors, um die LTSP-Container zu verwalten, Updates einzuspielen oder Snapshots zurückzurollen.
+3. *Hardware-Ebene (Out-of-Band):* Zugriff auf das dedizierte IPMI/BMC-Interface des ASRock-Mainboards. Selbst wenn Proxmox abgestürzt ist oder der Server ausgeschaltet wurde, kann das System aus Deutschland heraus auf Hardware-Ebene überwacht, neugestartet (Hard-Reset) oder auf BIOS-Ebene gewartet werden.
+
+*** Security-Hardening (Management-Isolierung)
+Der Zugriff auf die administrativen Schnittstellen (Proxmox-GUI, IPMI, RouterOS-Management) wird durch die Firewall des Routers konsequent eingeschränkt. Diese Dienste sind ausschließlich durch den WireGuard-Tunnel (für Administratoren) oder aus dem dedizierten Lehrernetzwerk erreichbar. Ein Zugriff oder Anmeldeversuch aus dem Schülernetzwerk wird auf Netzwerkebene ("Drop-Rule") blockiert.

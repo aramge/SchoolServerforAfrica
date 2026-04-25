@@ -610,3 +610,67 @@ An extremely cost-efficient measure ("Hardware Hardening") for physically sealin
 
 *** Alternatives
 - Sealing with industrial cloth tape.
+
+* Software Architecture
+
+** Hypervisor: Proxmox VE (Virtual Environment)
+Proxmox VE is used as the base operating system (bare-metal). Proxmox is based on Debian GNU/Linux, which is considered extremely stable (as of 04/2026: Debian 13 "Trixie"). It acts as the hypervisor and manages all hardware resources, the ZFS storage pool, as well as the virtual machines and containers.
+
+*** Advantages for the Project
+- *License-free:* The system is entirely open-source (AGPLv3) and can be used without restrictions in a school environment.
+- *ZFS & Snapshots (Life Insurance):* The ZFS file system protects against silent data corruption. Automated snapshots allow the entire server state to be rolled back to a working condition in seconds in the event of misconfigurations.
+- *Resource Efficiency:* By using Linux Containers (LXC) instead of fully virtualized VMs, there is practically no performance drop compared to a bare-metal setup. This conserves the 65W throttled CPU and reduces heat output in the locker.
+- *Usability:* Operation is handled via a web-based graphical user interface (GUI) with informative charts, significantly lowering the barrier to entry for local administration.
+
+** Core System: LTSP (Linux Terminal Server Project)
+This is the heart of the ICT room and runs as an isolated LXC container on the Proxmox host. Instead of painstakingly maintaining and installing software on 20 aging HP computers individually, these hardware clients now act merely as dumb input/output terminals ("Thin Clients").
+
+- *Zero Maintenance (KISS Principle):* All client software (desktop environment, LibreOffice, CAD tools for the trades) resides in a single master image on the server. Updates only need to be applied exactly once on the server. Upon the next boot, all 20 students instantly work with the new version.
+- *Student Management:* User management (authentication and home directories) is handled pragmatically and locally within the LTSP container. This can be automated via simple scripts at the start of the school year ("60 in, 60 out").
+- *Security:* Since the clients no longer use local hard drives, they are immune to virus infections from USB flash drives. After a client reboot, the system returns to its clean original state.
+
+** Optional Services (Phase 2)
+To keep the system as simple as possible initially, additional services will be operated in their own resource-friendly containers, strictly separated from the LTSP core system:
+- *File Server (Samba):* To provide central exchange drives for cross-class projects or teaching materials.
+- *Local Intranet:* A local web server for a school wiki or offline copies of documentation (e.g., Wikipedia) to conserve cellular bandwidth.
+
+
+* Network Logic & Routing (MikroTik RouterOS)
+
+The MikroTik hAP ax3 acts not only as the physical connection to the internet but as the central "brain" for network security and data flow. The RouterOS operating system handles the following mission-critical concepts:
+
+** DHCP & PXE Boot (The Control Center)
+Instead of overloading the server with network services, the router acts as the sole DHCP server ("Single Source of Truth") for the entire classroom. 
+When a diskless student PC is turned on, it requests an IP address from the router. The router assigns the IP and, via specific DHCP parameters (Option 66/67), directly hands over the IP address of the LTSP server. The client then immediately knows to fetch its bootloader via TFTP from the server to load the operating system over the network.
+
+** Firewalling & Network Isolation
+The router strictly separates the school's different user groups at the protocol level (subnetting / VLANs) to minimize security risks.
+- *Student Network (LAN):* The thin clients in the ICT room have access to the local server and the internet.
+- *Teacher Network:* An administratively separated network for the instructors.
+- *Rule Set (Drop Rule):* The router's firewall blocks any traffic initiated from the student network (or Wi-Fi) towards the teacher network. The teachers' administrative data is thus physically protected from access attempts originating in the classroom.
+
+** Bandwidth Management (Traffic Shaping)
+Since internet access is provided via an LTE/5G cellular router (Airtel), bandwidth is an expensive and limited commodity. Without regulation, a single student could cripple the internet for the remaining 19 computers with a large download.
+- *Queues:* The MikroTik router limits the maximum downstream and upstream per student IP address. 
+- *Fair Use Policy:* The total available bandwidth is dynamically and fairly distributed among all active users. Video streaming services can be entirely throttled or blocked via firewall rules as needed, keeping the connection clear for text and code research.
+
+** Wi-Fi Architecture (Isolated Clients)
+The integrated Wi-Fi of the hAP ax3 will be provided to the students as a free hotspot, but it is heavily regulated.
+- *Client Isolation (AP Isolation):* This feature is strictly enabled. It prevents Wi-Fi devices (e.g., students' personal smartphones) from communicating with each other. This stops the spread of malware between mobile devices and prevents network attacks (like ARP spoofing) within the student body.
+- The Wi-Fi is treated identically to the LAN in terms of networking: Internet access is permitted (bandwidth-limited), but access to the teacher network is categorically blocked.
+  
+** Remote Maintenance & VPN (WireGuard over CGNAT)
+Since the school's internet connection is provided via a cellular router (Airtel), the MikroTik router does not receive a public, externally accessible IPv4 address (Carrier-Grade NAT). Classic remote maintenance approaches like DynDNS or port forwarding are therefore technically impossible. The solution is based on an active WireGuard tunnel.
+
+- *The Tunnel Concept:* The MikroTik hAP ax3 in Marangu acts as an active client. It establishes a persistent, encrypted WireGuard tunnel to a fixed endpoint in Germany (e.g., a low-cost cloud VPS or the administrator's home server).
+- *Persistent Keepalive:* To keep the tunnel permanently open through the cellular provider's NAT firewalls, the MikroTik sends regular keepalive packets ("heartbeats"). If the cellular connection drops, the router automatically rebuilds the tunnel as soon as the network returns.
+- *Central Management Routing:* Through this established tunnel, the administrator in Germany gains full and secure access to the local school network, just as if they were physically present in the classroom.
+
+*** Covered Remote Maintenance Scenarios
+Three critical management layers are covered via the WireGuard routing:
+1. *Network Layer:* Full access to MikroTik RouterOS (WinBox/SSH) for adjusting firewall rules, bandwidth limits, or diagnosing connection failures.
+2. *Software Layer:* Access to the web interface and command line (SSH) of the Proxmox hypervisor to manage the LTSP containers, apply updates, or roll back snapshots.
+3. *Hardware Layer (Out-of-Band):* Access to the dedicated IPMI/BMC interface of the ASRock motherboard. Even if Proxmox has crashed or the server is powered off, the system can be monitored, restarted (hard reset), or maintained at the BIOS level from Germany.
+
+*** Security Hardening (Management Isolation)
+Access to the administrative interfaces (Proxmox GUI, IPMI, RouterOS management) is strictly restricted by the router's firewall. These services are exclusively accessible through the WireGuard tunnel (for administrators) or from the dedicated teacher network. Any access or login attempt from the student network is blocked at the network level ("Drop Rule").
