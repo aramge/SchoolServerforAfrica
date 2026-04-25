@@ -6,7 +6,7 @@
 #+LATEX_HEADER: \usepackage[document]{ragged2e}
 
 * Anlass
-- Ort: Kilimandscharo Gebiet, Marangu
+- Ort: Kilimandscharo Gebiet
 - Klima & Umwelt: 1.300 m ü. NN, moderates Klima, Temperaturen < 30°C. Hohe Staubbelastung (feiner, roter Sand)
 - Berufsschule mit 120 Schülern, 60 pro Jahrgang
 - Unterrichtsfächer (Trades):
@@ -225,7 +225,7 @@ Wir wählen AM4 als Plattform, da diese technologisch vollständig ausgereift is
 
 Die gewählte CPU verfügt mit 16 Kernen und 32 Threads über eine umfassende Leistungsreserve. Dies garantiert, dass das System auch bei künftigen Software-Aktualisierungen und steigenden Anforderungen über den geplanten Lebenszyklus hinweg performant bleibt. 
 
-Um die Betriebssicherheit am Einsatzort Marangu zu maximieren, wird die CPU im BIOS auf eine TDP von 65W (Eco-Mode) begrenzt. Diese Maßnahme führt zu einer deutlich reduzierten thermischen Last und entlastet die Spannungsversorgung sowie die Kühlkomponenten. Trotz dieser Drosselung bleibt die Multithreading-Leistung für den Betrieb von 20 LTSP-Clients und die parallele Ausführung von Netzwerkdiensten mehr als ausreichend.
+Um die Betriebssicherheit am Einsatzort zu maximieren, wird die CPU im BIOS auf eine TDP von 65W (Eco-Mode) begrenzt. Diese Maßnahme führt zu einer deutlich reduzierten thermischen Last und entlastet die Spannungsversorgung sowie die Kühlkomponenten. Trotz dieser Drosselung bleibt die Multithreading-Leistung für den Betrieb von 20 LTSP-Clients und die parallele Ausführung von Netzwerkdiensten mehr als ausreichend.
 
 *** Vorteile
 - Hohe Parallelisierungsfähigkeit durch 32 Threads

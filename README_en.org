@@ -6,7 +6,7 @@
 #+LATEX_HEADER: \usepackage[document]{ragged2e}
 
 * Background
-- Location: Kilimanjaro Region, Marangu
+- Location: Kilimanjaro Region, 
 - Climate & Environment: 1,300 m a.s.l., moderate climate, temperatures < 30°C. High dust exposure (fine, red sand).
 - Vocational school with 120 students, 60 per grade
 - Trades taught:
@@ -226,7 +226,7 @@ We chose AM4 as the platform because it is technologically fully mature, thus of
 
 With 16 cores and 32 threads, the selected CPU has a comprehensive performance reserve. This guarantees that the system will remain performant even with future software updates and increasing demands over the planned lifecycle.
 
-To maximize operational reliability at the Marangu deployment site, the CPU is limited to a TDP of 65W (Eco-Mode) in the BIOS. This measure leads to a significantly reduced thermal load and relieves the power delivery systems as well as the cooling components. Despite this throttling, the multithreading performance remains more than sufficient for running 20 LTSP clients and executing network services in parallel.
+To maximize operational reliability at the deployment site, the CPU is limited to a TDP of 65W (Eco-Mode) in the BIOS. This measure leads to a significantly reduced thermal load and relieves the power delivery systems as well as the cooling components. Despite this throttling, the multithreading performance remains more than sufficient for running 20 LTSP clients and executing network services in parallel.
 
 *** Advantages
 - High parallelization capability through 32 threads.
