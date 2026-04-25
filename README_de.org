@@ -1,6 +1,7 @@
 #+Title: Schulserver für unsere Berufsschule in Tansania
 #+Author: Axel Ramge
 #+Date: 2026-04-25
+#+OPTIONS: toc:2
 #+LANGUAGE: de
 #+LATEX_HEADER: \usepackage[ngerman]{babel}
 #+LATEX_HEADER: \usepackage[document]{ragged2e}

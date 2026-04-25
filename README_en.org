@@ -1,6 +1,7 @@
 #+Title: School Server for our Vocational School in Tanzania
 #+Author: Axel Ramge
 #+Date: 2026-04-25
+#+OPTIONS: toc:2
 #+LANGUAGE: en
 #+LATEX_HEADER: \usepackage[english]{babel}
 #+LATEX_HEADER: \usepackage[document]{ragged2e}
