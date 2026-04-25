@@ -1,0 +1,21 @@
+# Emacs Backups und Temp-Files
+*~
+\#*\#
+.\#*
+
+# LaTeX / Org-Mode PDF Export-Schrott
+*.tex
+*.aux
+*.log
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+
+# LibreOffice Lockfiles
+.~lock.*#
+
+# Sonstiger OS-Müll
+.DS_Store
+Thumbs.db

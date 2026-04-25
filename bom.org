@@ -1,0 +1,31 @@
+#+CAPTION: Bill of Materials (BOM) - Ngaruma ICT-Room
+| No. | Description                                         | Qty | Unit Price |   Total |
+|-----+-----------------------------------------------------+-----+------------+---------|
+|   1 | ATX Midi-Tower Case (incl. local assembly)          |   1 |     170.00 |  170.00 |
+|   2 | APC Smart-UPS 750VA (Line-Interactive)              |   1 |     400.00 |  400.00 |
+|   3 | Surge Protector Power Strip (Brennenstuhl/APC)      |   1 |      40.00 |   40.00 |
+|   4 | Seasonic Focus GX 750W ATX 3.1                      |   1 |      83.19 |   83.19 |
+|   5 | ASRock Rack X570D4U-2L2T/BCM                        |   1 |     480.00 |  480.00 |
+|   6 | AMD Ryzen 9 5950X                                   |   1 |     360.00 |  360.00 |
+|   7 | Noctua NH-U12S redux CPU Cooler                     |   1 |      54.60 |   54.60 |
+|   8 | Noctua PWM Case Fan (120/140mm)                     |   4 |      20.00 |   80.00 |
+|   9 | UDIMM 32GB DDR4-3200 ECC unbuffered                 |   2 |     190.00 |  380.00 |
+|  10 | Samsung SM883 480GB Datacenter SSD                  |   7 |     110.00 |  770.00 |
+|  11 | Logitech HD Pro C920 Webcam                         |   1 |      49.99 |   49.99 |
+|  12 | Edifier R1280DB Speakers (Pair)                     |   1 |     130.00 |  130.00 |
+|  13 | Cubilux USB to TOSLINK Converter                    |   1 |      20.00 |   20.00 |
+|  14 | Optical Digital Audio Cable (Toslink) 10m           |   1 |      12.00 |   12.00 |
+|  15 | Copper Speaker Cable 2.5 mm² (per meter)            |  18 |       1.50 |   27.00 |
+|  16 | MikroTik hAP ax3 (Existing Stock)                   |   1 |       0.00 |    0.00 |
+|  17 | MikroTik CRS326-24G-2S+RM Switch                    |   1 |     140.00 |  140.00 |
+|  18 | 10GBASE-T SFP+ to RJ45 Transceiver                  |   1 |      50.00 |   50.00 |
+|  19 | Network Cables (Custom made / Existing Stock)       |  25 |       0.00 |    0.00 |
+|  20 | StarTech 7-Port Industrial USB 3.0 Hub              |   1 |      82.40 |   82.40 |
+|  21 | Logitech K120 Keyboard US Layout                    |  22 |       8.85 |  194.70 |
+|  22 | Logitech B100 Optical Mouse USB                     |  25 |       3.56 |   89.00 |
+|  23 | DisplayPort to HDMI Adapter Cable 1m                |  22 |       6.00 |  132.00 |
+|  24 | Sacrificial USB-A 3.0 Extension Cable (15-30cm)     |   7 |       3.00 |   21.00 |
+|  25 | USB Silicon Dust Caps (Set)                         |   1 |       4.29 |    4.29 |
+|-----+-----------------------------------------------------+-----+------------+---------|
+|     | *Total (EUR)* |     |            | 3690.17 |
+#+TBLFM: $5=$3*$4;%.2f::@>$5=vsum(@2..@-1);%.2f

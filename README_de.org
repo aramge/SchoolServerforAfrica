@@ -1,10 +1,13 @@
 #+Title: Schulserver für unsere Berufsschule in Tansania
 #+Author: Axel Ramge
 #+Date: 2026-04-25
+#+LANGUAGE: de
+#+LATEX_HEADER: \usepackage[ngerman]{babel}
+#+LATEX_HEADER: \usepackage[document]{ragged2e}
 
 * Anlass
 - Ort: Kilimandscharo Gebiet, Marangu
-- Klima & Umwelt: 1.300 m ü NN, moderates Klima, Temperaturen < 30°C. Hohe Staubbelastung (feiner, roter Sand)
+- Klima & Umwelt: 1.300 m ü. NN, moderates Klima, Temperaturen < 30°C. Hohe Staubbelastung (feiner, roter Sand)
 - Berufsschule mit 120 Schülern, 60 pro Jahrgang
 - Unterrichtsfächer (Trades):
   - CJ, Carpentry and Joinery, Tischler
@@ -13,12 +16,12 @@
   - MVM, Motor Vehicle Mechanics, KFZ-Mechaniker
   - DSCT, Design Sewing and Cloth Technology, Schneider
   - ICT, Information and Communications, Fachinformatiker
-- Computerausstattung: 20 Business-PC's (HP ProDesk/EliteDesk SFF) von ca. 2010-2015. 2G RAM, nicht vernetzt, aber mit Netzwerkkarte ausgestattet. Mechanische Festplatten mit 240G
+- Computerausstattung: 20 Business-PCs (HP ProDesk/EliteDesk SFF) von ca. 2010-2015. 2 GB RAM, nicht vernetzt, aber mit Netzwerkkarte ausgestattet. Mechanische Festplatten mit 240 GB.
 - Monitore: ca. 15", verfügen über HDMI-Eingänge, sind aber aktuell über analoge VGA-Kabel angeschlossen
-- Betriebssystem(e): Windows 7 und Windows 10. Systeme wahrscheinlich durchweg mit Viren durchseucht. Die "Kommunikation" findet durch USB-Sticks statt
+- Betriebssystem(e): Windows 7 und Windows 10. Systeme wahrscheinlich durchweg mit Viren durchseucht. Die "Kommunikation" findet durch USB-Sticks statt.
 - Anwendersoftware: Microsoft Office (Version unbekannt), CAD (genauere Spezifikation fehlt)
 - Nutzung: Ausbildung der ICT-Schüler, Anwendung von CAD für andere Gewerke (Trades)
-- Internetzugang über LTE/5G-Router vorhanden. Kann eventuell bei Bedarf verbessert werden, z.B. Starlink
+- Internetzugang über LTE/5G-Router vorhanden. Kann eventuell bei Bedarf verbessert werden, z. B. Starlink
 
 ** Probleme
 - Windows wird nicht mehr unterstützt (abgesehen davon handelt es sich durchweg um Raubkopien, was aber in Tansania üblich ist). Ein Update auf aktuelle Windowsversionen ist wegen der hohen Hardwareanforderungen und fehlender Lizenzen nicht möglich
@@ -48,7 +51,7 @@
 ** Beschaffung der Komponenten
 - Strategischer Einkauf: Nutzung von Refurbished-Enterprise-Hardware (mit Gewährleistung) für kritische Serverkomponenten, um höchste Qualität im Budgetrahmen zu realisieren
 - Massenbeschaffung (Bulk): Verschleißteile wie Mäuse, Tastaturen oder Kabel werden in größeren Gebinden gekauft, um eine hohe Vor-Ort-Redundanz (Ersatzteillager) zu extrem niedrigen Stückpreisen aufzubauen
-- Beschaffung großer Bauteile (Gehäuse, USV, eventuell Netzteil lokal z.B. durch lokalen Computershop in Moshi (InnoSykes Computer)
+- Beschaffung großer Bauteile (Gehäuse, USV, eventuell Netzteil lokal z. B. durch lokalen Computershop in Moshi (InnoSykes Computer))
 
 ** Zusammenbau
 - Server: Zusammenbau durch Computershop
@@ -56,7 +59,7 @@
 
 ** Transport nach Tansania
 - Transport der kleinen Einzelkomponenten beim nächsten Besuch aus oder nach Tansania im Handgepäck oder Koffer
-- Verzicht auf voluminöse Retail-Verpackungen (z.B. OEM/Business-Tastaturen in braunen flachen Kartons), um das Packmaß für den Flugzeugtransport zu minimieren
+- Verzicht auf voluminöse Retail-Verpackungen (z. B. OEM/Business-Tastaturen in braunen flachen Kartons), um das Packmaß für den Flugzeugtransport zu minimieren
 
 ** Inbetriebnahme in Deutschland
 - Installation und Inbetriebnahme der Server-Software
@@ -66,25 +69,27 @@
 - Verteilung der Komponenten zum Transport (falls der Zoll in Tansania etwas bemängelt)
 
 ** Inbetriebnahme in Tansania
-- Hardware-Setup: Umsetzung des mechanischen Schutzes im Klassenraum (Zugentlastungen per Kabelbinder an Monitoren, Opfer-Kabel-Strategie für USB-Ports)
+- Hardware-Setup: Umsetzung des mechanischen Schutzes im Klassenraum (Zugentlastungen per Kabelbinder an Monitoren, Opfer-Kabel-Strategie für USB-Ports am Server)
 - Einweisung: Kurzes Training für die Lehrkräfte vor Ort für simple Wartungsroutinen (z. B. monatliches Abpinseln der Staubfilter, Tausch von Opferkabeln)
 - Software-Setup: Sollte durch den professionellen Zusammenbau und die Vorbereitung in Deutschland eine Knopfdruckangelegenheit sein (wird sicher nicht so kommen)
 
 * Netzwerk
 - Die Schule verfügt seit kurzem über einen gut funktionierenden Internet-Zugang über Mobilfunk (Airtel-Router)
-- Das Schülernetzwerk erhält über einen Router/Firewall Mikrotik hAP ax2 Zugang zum Internet, bzw zum Airtel-Router
-- Der hAP ax2 Router hat eingebautes Wifi, um den Schülern kostenloses Wifi zur Verfügung zu stellen. Die Bandbreite wird so reduziert, dass Videoübertragung nicht möglich sein wird (Zumindest nicht wenn mehrere Schüler das versuchen). Die Wifi-Clients sind voneinander getrennt und können nicht auf das Schülernetzwerk zugreifen. Der Zugriff auf das Lehrernetzwerk wird sowohl für Wifi als auch das Schülernetzwerk durch die Firewall des Routers unterbunden
+- Das Schülernetzwerk erhält über einen Router/Firewall Mikrotik hAP ax3 Zugang zum Internet, bzw. zum Airtel-Router
+- Der hAP ax3 Router hat eingebautes Wifi, um den Schülern kostenloses Wifi zur Verfügung zu stellen. Die Bandbreite wird so reduziert, dass Videoübertragung nicht möglich sein wird (Zumindest nicht, wenn mehrere Schüler das versuchen). Die Wifi-Clients sind voneinander getrennt und können nicht auf das Schülernetzwerk zugreifen. Der Zugriff auf das Lehrernetzwerk wird sowohl für Wifi als auch das Schülernetzwerk durch die Firewall des Routers unterbunden
 - Die Verbindung nach Deutschland erfolgt über ein VPN-Netzwerk (Wireguard)
-- Da er neue Server über drei Netzwerkanschlüsse verfügt, kann als Backup-Router eine virtuelle Maschine als Router aufgesetzt werden (Option), falls der hAP ax2 ausfällt
-- Alternativ könnte ein kostengünstiges Mikrotik Routerboard als Backup fungieren (z.B. MikroTik RouterBOARD hEX S RB760iGS, ca. 70 €)
-- Als Switch wird ein Mikrotik CRS326-24G-2S+RM eingesetzt. Dieser verfügt über 2 SFP+ Ports für die schnelle Anbindung des Servers und 24 1GBit/s-Ports für die Schüler-PC's
-- Als Backup für den Switch steht ein 100MBit/s-Switch mit 24 Ports zur Verfügung. Ein Notbetrieb für die ICT-Schüler (6) sollte damit möglich sein
+- Da der neue Server über drei Netzwerkanschlüsse verfügt, kann als Backup-Router eine virtuelle Maschine als Router aufgesetzt werden (Option), falls der hAP ax3 ausfällt
+- Alternativ könnte ein kostengünstiges Mikrotik Routerboard als Backup fungieren (z. B. MikroTik RouterBOARD hEX S RB760iGS, ca. 70 €)
+- Als Switch wird ein Mikrotik CRS326-24G-2S+RM eingesetzt. Dieser verfügt über 2 SFP+ Ports für die schnelle Anbindung des Servers und 24 1GBit/s-Ports für die Schüler-PCs
 
 * Hardware-Komponenten (BOM)
+Hier folgt die Stückliste für das Projekt. Die detaillierte Begründung der einzelnen Komponenten befindet sich in den Unterkapiteln.
+
+#+INCLUDE: "bom.org"
 
 ** Exkurs: Warum kein gebrauchter Industrie-Server (Rack-Server)?
 
-Bei der Projektplanung drängt sich oft die Frage auf, warum keine ausgemusterten Enterprise-Server (z.B. Dell PowerEdge oder HP ProLiant) erworben werden, die auf dem Refurbished-Markt extrem kostengünstig verfügbar sind. Der Einsatz solcher Systeme verbietet sich aus folgenden technischen und infrastrukturellen Gründen:
+Bei der Projektplanung drängt sich oft die Frage auf, warum keine ausgemusterten Enterprise-Server (z. B. Dell PowerEdge oder HP ProLiant) erworben werden, die auf dem Refurbished-Markt extrem kostengünstig verfügbar sind. Der Einsatz solcher Systeme verbietet sich aus folgenden technischen und infrastrukturellen Gründen:
 
 *** 1. Lärmemission (Ergonomie im Klassenraum)
 Industrielle Rack-Server (1HE oder 2HE Bauform) kühlen ihre massiv verdichteten Komponenten mit kleinen Hochgeschwindigkeitslüftern, die Drehzahlen von über 10.000 U/min erreichen. Die resultierende Lärmbelastung schließt einen regulären Unterricht in demselben Raum vollständig aus. Da die Schule über keinen dedizierten, klimatisierten und schallgedämmten Serverraum verfügt, muss das System zwingend flüsterleise (wie unser Noctua-Konzept) im Klassenraum operieren.
@@ -93,7 +98,7 @@ Industrielle Rack-Server (1HE oder 2HE Bauform) kühlen ihre massiv verdichteten
 Enterprise-Hardware ist exklusiv für den Betrieb in hochreinen, klimatisierten Rechenzentren konzipiert und verfügt bauartbedingt über keinerlei Staubfilter. In der stark partikelbelasteten Umgebung am Kilimandscharo würden sich die engen Kühlrippen dieser Server durch den roten Feinstaub innerhalb kürzester Zeit zusetzen. Dies führt unweigerlich zum thermischen Ausfall. Die von uns geplante PC-Gehäuse-Lösung mit filtriertem Überdruck (Positive Air Pressure) ist hier die einzig funktionsfähige Alternative.
 
 *** 3. Energieineffizienz und Stromnetz-Belastung
-Gebrauchte Rack-Server, deren Anschaffungspreis in das Projektbudget passen würde (z.B. ältere Intel Xeon Architekturen), weisen einen inakzeptabel hohen Stromverbrauch auf. Ein hoher Leerlaufverbrauch (Idle) sowie massive Lastspitzen würden die geplante USV (750VA) sofort überlasten und das ohnehin instabile lokale Stromnetz zusätzlich strapazieren. Die Drosselung unseres modernen AMD-Prozessors auf 65W TDP bietet hier eine um ein Vielfaches höhere Effizienz pro Watt.
+Gebrauchte Rack-Server, deren Anschaffungspreis in das Projektbudget passen würde (z. B. ältere Intel Xeon Architekturen), weisen einen inakzeptabel hohen Stromverbrauch auf. Ein hoher Leerlaufverbrauch (Idle) sowie massive Lastspitzen würden die geplante USV (750VA) sofort überlasten und das ohnehin instabile lokale Stromnetz zusätzlich strapazieren. Die Drosselung unseres modernen AMD-Prozessors auf 65W TDP bietet hier eine um ein Vielfaches höhere Effizienz pro Watt.
 
 *** 4. Proprietäre Ersatzteile und Transportlogistik
 Industrie-Server nutzen proprietäre Formfaktoren für Netzteile, Mainboards und Lüfter. Bei einem Hardwaredefekt in Tansania ist die Beschaffung passender Ersatzteile nahezu unmöglich. Unser Custom-Server basiert hingegen vollständig auf dem weltweiten ATX-Standard. Im absoluten Notfall kann der lokale Computershop in Moshi Komponenten aus Standard-PCs als Ersatzteile adaptieren. Zudem ist ein 19-Zoll-Server schlicht zu groß und zu schwer, um ihn kostengünstig und zollsicher im Fluggepäck nach Tansania zu transportieren.
@@ -120,6 +125,12 @@ Technisch ist die exakte Marke des Gehäuses sekundär, jedoch wird der Computer
 
 *** Alternativen
 - *Einkaufsspezifikation für den Computershop:* Die zwingenden Mindestparameter lauten mATX-Kompatibilität, luftdurchlässige Mesh-Front, ausreichende Baubreite für den 158 mm hohen Noctua-CPU-Kühler sowie mindestens zwei Frontlüfter zur Erzeugung des Überdrucks.
+
+*** Montage-Hinweis
+- Das Servergehäuse wird auf einer Konsole mit deutlichem Abstand zum Boden frei an einer Wand montiert. Das Gehäuse wird mit einem Bügelschloss gesichert und an einer Kette an der Wand befestigt.
+
+*** Wartungs- und Instandhaltungs-Hinweis
+- Die Staubfilter müssen in regelmäßigem Turnus gereinigt werden (Frequenz sollte nach Verschmutzungsgrad herausgefunden werden).
 
 ** Power: Line-Interactive USV 750VA (Leitfabrikat: APC Smart-UPS)
 - *Teilenummer:* Generisch (Lokale Beschaffung vor Ort, Referenz: APC SMT750IC)
@@ -148,7 +159,7 @@ Als Leitfabrikat wird APC (Modellreihe Smart-UPS) vorgegeben. Die USV muss über
 - *Teilenummer:* Generisch (Referenz: Brennenstuhl Premium-Protect-Line oder APC SurgeArrest)
 - *Stückpreis:* ca. 30.00 - 50.00 €
 - *Menge:* 1 (Empfehlung: 2, inkl. Cold-Spare)
-- *Links:* Geizhals | Google Buy | eBay Pro
+- *Links:* [[https://www.google.com/search?q=Brennenstuhl+Premium-Protect-Line][Google]] | [[https://www.ebay.de/sch/i.html?_nkw=Brennenstuhl+Premium-Protect-Line&LH_SellerType=2][eBay Pro]]
 
 *** Warum dieses Teil?
 Obwohl die nachgelagerte USV über interne Schutzmechanismen verfügt, ist ein dedizierter Überspannungsschutz an der primären Wandsteckdose zwingend erforderlich. Er fungiert als vorgeschaltete "elektrische Opferanode". Bei katastrophalen Spannungsspitzen (z. B. durch Blitzeinschläge oder schwere Fehlfunktionen im lokalen Stromnetz) fängt dieses Bauteil die Zerstörungskraft ab und unterbricht den Stromkreis physisch, bevor die 400 Euro teure USV oder der Server beschädigt werden. Geht dieser Schutzmechanismus kaputt, muss lediglich eine günstige Steckdosenleiste ausgetauscht werden.
@@ -163,12 +174,12 @@ Obwohl die nachgelagerte USV über interne Schutzmechanismen verfügt, ist ein d
 
 *** Alternativen
 - Fest installierter Überspannungsschutz im Sicherungskasten des Gebäudes (Typ 2 / Typ 3 Ableiter). Dies bietet noch besseren Schutz, erfordert jedoch einen lokalen Elektriker und einen Eingriff in die Bausubstanz der Schule, was außerhalb unseres direkten Projekt-Scopes liegt.
-  
+
 ** Power: Seasonic Focus GX 750W ATX 3.1 (2024)
 - *Teilenummer:* FOCUS-GX-750-V4-WHITE
 - *Stückpreis:* 83.19 €
 - *Menge:* 1
-- *Links:* [[https://seasonic.com/focus-gx][Offiziell]] | [[https://geizhals.de/seasonic-focus-gx-white-atx-3-gx-750-750w-atx-3-1-a3264426.html][Geizhals]] | [[https://www.google.com/search?q=Seasonic+Focus+GX+750W+buy&tbm=shop][Google Buy]] | [[https://www.ebay.com/sch/i.html?_nkw=Seasonic+Focus+GX+750W&LH_SellerType=2][eBay Pro]]
+- *Links:* [[https://www.google.com/search?q=Seasonic+Focus+GX+750W+ATX+3.1][Google]] | [[https://www.ebay.de/sch/i.html?_nkw=Seasonic+Focus+GX+750W&LH_SellerType=2][eBay Pro]]
 
 *** Warum dieses Teil?
 Die Qualität der Kondensatoren ist aufgrund der lokalen Netzspannungsschwankungen in Tansania von kritischer Bedeutung. Das Modell verfügt über hochtemperaturfeste (105°C) japanische Komponenten. Eine Kapazität von 750W bedeutet für das gedrosselte Gesamtsystem eine starke Überdimensionierung, was zur Folge hat, dass das Netzteil dauerhaft im optimalen thermischen Bereich und fernab jeglicher Belastungsgrenzen operiert.
@@ -187,7 +198,7 @@ Die Qualität der Kondensatoren ist aufgrund der lokalen Netzspannungsschwankung
 - *Teilenummer:* X570D4U-2L2T/BCM
 - *Stückpreis:* 480.00 €
 - *Menge:* 1
-- *Links:* [[https://www.asrockrack.com/general/productdetail.asp?Model=X570D4U-2L2T/BCM][Offiziell]] | [[https://geizhals.de/?fs=ASRock+Rack+X570D4U-2L2T%2FBCM][Geizhals]] | [[https://www.google.com/search?q=ASRock+Rack+X570D4U-2L2T%2FBCM+buy&tbm=shop][Google Buy]] | [[https://www.ebay.com/sch/i.html?_nkw=ASRock+Rack+X570D4U-2L2T%2FBCM&LH_SellerType=2][eBay Pro]]
+- *Links:* [[https://www.google.com/search?q=ASRock+Rack+X570D4U-2L2T%2FBCM][Google]] | [[https://www.ebay.de/sch/i.html?_nkw=ASRock+Rack+X570D4U-2L2T%2FBCM&LH_SellerType=2][eBay Pro]]
 
 *** Warum dieses Teil?
 Ein dezidiertes Server-Mainboard bildet die Grundlage für eine hohe Systemverfügbarkeit. Die integrierte IPMI/BMC-Schnittstelle ermöglicht ein vollständiges Out-of-Band-Management. Dies bedeutet, dass der Server bei Ausfällen auf Hardware- und BIOS-Ebene von Deutschland aus ferngewartet werden kann. Zusätzlich sind Dual-10-Gigabit-Netzwerkschnittstellen integriert, was den erforderlichen Datendurchsatz für das Netzwerk-Booten sicherstellt.
@@ -207,7 +218,7 @@ Ein dezidiertes Server-Mainboard bildet die Grundlage für eine hohe Systemverf�
 - *Teilenummer:* 100-100000059WOF
 - *Stückpreis:* 360.00 €
 - *Menge:* 1
-- *Links:* Offiziell | Geizhals | Google Buy | eBay Pro
+- *Links:* [[https://www.google.com/search?q=AMD+Ryzen+9+5950X][Google]] | [[https://www.ebay.de/sch/i.html?_nkw=AMD+Ryzen+9+5950X&LH_SellerType=2][eBay Pro]]
 
 *** Warum dieses Teil?
 Wir wählen AM4 als Plattform, da diese technologisch vollständig ausgereift ist und somit ein optimales Preis-Leistungs-Verhältnis bietet. Ein wesentlicher Vorteil der AM4-Architektur gegenüber anderen Plattformen (wie beispielsweise Intel Xeon) ist die native Unterstützung von ECC-Arbeitsspeicher ohne die dort üblichen signifikanten Mehrkosten für spezialisierte Server-Chipsätze.
@@ -232,7 +243,7 @@ Um die Betriebssicherheit am Einsatzort Marangu zu maximieren, wird die CPU im B
 - *Teilenummer:* NH-U12S redux
 - *Stückpreis:* 54.60 €
 - *Menge:* 1
-- *Links:* [[https://noctua.at/en/nh-u12s-redux][Offiziell]] | [[https://geizhals.de/noctua-nh-u12s-redux-a2491185.html][Geizhals]] | [[https://www.google.com/search?q=Noctua+NH-U12S+redux+buy&tbm=shop][Google Buy]] | [[https://www.ebay.com/sch/i.html?_nkw=Noctua+NH-U12S+redux&LH_SellerType=2][eBay Pro]]
+- *Links:* [[https://www.google.com/search?q=Noctua+NH-U12S+redux][Google]] | [[https://www.ebay.de/sch/i.html?_nkw=Noctua+NH-U12S+redux&LH_SellerType=2][eBay Pro]]
 
 *** Warum dieses Teil?
 Die verbauten SSO2-Lager des Herstellers gelten als Branchenstandard für langlebige Mechanik unter schwierigen Umweltbedingungen. In Kombination mit der BIOS-seitig auf 65W gedrosselten CPU wird der Lüfter thermisch nur minimal beansprucht, was die Ausfallsicherheit über den Projektzeitraum von 10 Jahren deutlich erhöht.
@@ -251,7 +262,7 @@ Die verbauten SSO2-Lager des Herstellers gelten als Branchenstandard für langle
 - *Teilenummer:* NF-A14 PWM / NF-P12 redux (je nach Gehäusevorgabe)
 - *Stückpreis:* ca. 15.00 - 25.00 €
 - *Menge:* Maximale Bestückung des gewählten Gehäuses (ca. 3-5 Stück)
-- *Links:* Geizhals | Google Buy | eBay Pro
+- *Links:* [[https://www.google.com/search?q=Noctua+PWM+120mm+140mm][Google]] | [[https://www.ebay.de/sch/i.html?_nkw=Noctua+PWM+Luefter&LH_SellerType=2][eBay Pro]]
 
 *** Warum dieses Teil?
 Die Lüfterbestückung ist eine kritische Komponente für die geplante Systemlebensdauer von 10 Jahren. Die SSO2-Lagertechnologie von Noctua ist für ihre extreme Langlebigkeit unter schwierigen Umweltbedingungen bekannt. Durch die maximale Bestückung aller verfügbaren Lüfterplätze wird ein gezielter Überdruck im Gehäuse erzeugt. Dieser stellt sicher, dass die Kühlluft ausschließlich durch die vorhandenen Staubfilter eintritt und ungefiltertes Eindringen von rotem Feinstaub durch Gehäuseritzen minimiert wird. Die PWM-Steuerung erlaubt zudem eine präzise, lastabhängige Regelung, was den mechanischen Verschleiß weiter reduziert.
@@ -270,10 +281,10 @@ Die Lüfterbestückung ist eine kritische Komponente für die geplante Systemleb
 ** RAM: UDIMM 32GB DDR4-3200 ECC unbuffered
 - *Stückpreis:* ca. 85.00 - 110.00 € (Tagespreis)
 - *Menge:* 2 (Startausbau: 64 GB)
-- *Links:* Geizhals | Google Buy | eBay Pro
+- *Links:* [[https://www.google.com/search?q=UDIMM+32GB+DDR4-3200+ECC+unbuffered][Google]] | [[https://www.ebay.de/sch/i.html?_nkw=UDIMM+32GB+DDR4-3200+ECC+unbuffered&LH_SellerType=2][eBay Pro]]
 
 *** Warum dieses Teil?
-ECC-RAM (Error Correction Code) ist eine zwingende technische Voraussetzung für den stabilen Betrieb des ZFS-Dateisystems, um Datenkorruption durch Speicherfehler proaktiv zu verhindern. Die Beschaffung erfolgt herstelleragnostisch (z.B. Samsung, Hynix, Micron, Kingston) nach JEDEC-Spezifikationen.
+ECC-RAM (Error Correction Code) ist eine zwingende technische Voraussetzung für den stabilen Betrieb des ZFS-Dateisystems, um Datenkorruption durch Speicherfehler proaktiv zu verhindern. Die Beschaffung erfolgt herstelleragnostisch (z. B. Samsung, Hynix, Micron, Kingston) nach JEDEC-Spezifikationen.
 
 Aufgrund der starken Limitierung der Schüler-Hardware (nur 2 GB lokaler Arbeitsspeicher) wird die Architektur primär auf einen "Thin Client"-Betrieb ausgelegt. Hierbei übernimmt der Server sämtliche Rechenlasten. Um dies performant abzubilden, wird ein zweistufiger, zukunftssicherer Ausbauplan fokussiert:
 
@@ -295,21 +306,21 @@ Aufgrund der starken Limitierung der Schüler-Hardware (nur 2 GB lokaler Arbeits
 - *Teilenummer:* MZ7KH480HAHQ-00005
 - *Stückpreis:* 55.00 €
 - *Menge:* 7 (inkl. Cold-Spare)
-- *Links:* [[https://semiconductor.samsung.com/ssd/datacenter-ssd/sm883/][Offiziell]] | [[https://geizhals.de/?fs=Samsung+SM883+480GB][Geizhals]] | [[https://www.google.com/search?q=Samsung+SM883+480GB+buy&tbm=shop][Google Buy]] | [[https://www.ebay.com/sch/i.html?_nkw=Samsung+SM883+480GB&LH_SellerType=2][eBay Pro]]
+- *Links:* [[https://www.google.com/search?q=Samsung+SM883+480GB][Google]] | [[https://www.ebay.de/sch/i.html?_nkw=Samsung+SM883+480GB&LH_SellerType=2][eBay Pro]]
 
 *** Warum dieses Teil?
 Der Einsatz von Enterprise-SSDs mit Power-Loss-Protection (PLP) ist essenziell, um Datenkorruption bei den häufigen Stromausfällen vor Ort zu verhindern. Die hohe Lebenserwartung (TBW) der Speicherzellen ist für den gleichzeitigen Netzwerk-Bootvorgang der 20 LTSP-Clients erforderlich. Die Beschaffung von Refurbished-Hardware bietet hier Enterprise-Spezifikationen innerhalb des vorgegebenen Budgetrahmens.
 
-Die Enterprise-SSDs besitzen zudem ein Metallgehäuse, das sich besser kühlen lässt als Consumer-SSDs. Zudem ist durch die begrenzte Geschwindigkeit der Stromverbrauch und damit die Temperatur niedriger als bei NVMe's.
+Die Enterprise-SSDs besitzen zudem ein Metallgehäuse, das sich besser kühlen lässt als Consumer-SSDs. Zudem ist durch die begrenzte Geschwindigkeit der Stromverbrauch und damit die Temperatur niedriger als bei NVMe-SSDs.
 
-6 dieser SSDs werden in einem raidz2-Verbund zusammengeführt. Damit verfügt das System über eine Nettokapazität von 4 x der Einzelkapazität, d.h. bei 480GB erhalten wir 1.920GB, also knapp 2TB. Das RAID-Array ist dabei vor dem gleichzeitigem Ausfall von 2 SSDs geschützt. Eine SSD wird im Schrank als Reserve vorgehalten.
+6 dieser SSDs werden in einem raidz2-Verbund zusammengeführt. Damit verfügt das System über eine Nettokapazität von 4 x der Einzelkapazität, d.h. bei 480 GB erhalten wir 1.920 GB, also knapp 2 TB. Das RAID-Array ist dabei vor dem gleichzeitigem Ausfall von 2 SSDs geschützt. Eine SSD wird im Schrank als Reserve vorgehalten.
 
-Die Beschaffung erfolgt über den Gebrauchtmarkt auf Ebay oder Refurbished Händlern.
+Die Beschaffung erfolgt über den Gebrauchtmarkt auf eBay oder bei Refurbished-Händlern.
 
 *** Vorteile
 - Power-Loss-Protection (integrierte Kondensatoren)
 - Hohe Schreibzyklen-Belastbarkeit (Endurance)
-- Durch Verzicht auf maximale Geschwindigkeit (NVMe's) arbeitet das System passiv thermisch stabiler
+- Durch Verzicht auf maximale Geschwindigkeit (NVMe-SSDs) arbeitet das System passiv thermisch stabiler
 
 *** Nachteile
 - SATA-Schnittstelle limitiert die maximale Bandbreite gegenüber NVMe-Lösungen
@@ -322,7 +333,7 @@ Die Beschaffung erfolgt über den Gebrauchtmarkt auf Ebay oder Refurbished Händ
 - *Teilenummer:* 960-001055
 - *Stückpreis:* 49.99 €
 - *Menge:* 1
-- *Links:* [[https://www.logitech.com/en-us/products/webcams/c920-pro-hd-webcam.960-000764.html][Offiziell]] | [[https://geizhals.de/logitech-c920-hd-pro-webcam-960-001055-a1354003.html][Geizhals]] | [[https://www.google.com/search?q=Logitech+C920+buy&tbm=shop][Google Buy]] | [[https://www.ebay.com/sch/i.html?_nkw=Logitech+C920&LH_SellerType=2][eBay Pro]]
+- *Links:* [[https://www.google.com/search?q=Logitech+HD+Pro+C920][Google]] | [[https://www.ebay.de/sch/i.html?_nkw=Logitech+HD+Pro+C920&LH_SellerType=2][eBay Pro]]
 
 *** Warum dieses Teil?
 Dieses Modell zeichnet sich durch hohe mechanische Robustheit und native UVC-Unterstützung (USB Video Class) aus. Das garantiert eine treiberlose Plug-and-Play-Kompatibilität unter Linux. Die 1080p-Auflösung stellt ein optimales Verhältnis zwischen Bildqualität und dem bandbreitenbeschränkten Internetzugang vor Ort dar.
@@ -343,7 +354,7 @@ Die Webcam hat zudem ein integriertes Mikrofon für Videokonferenzen.
 - *Teilenummer:* R1280DB
 - *Preis pro Paar:* ca. 130.00 €
 - *Menge:* 1 Paar
-- *Links:* [[https://www.edifier.com/product-r1280db.html][Offiziell]] | [[https://geizhals.de/edifier-r1280db-schwarz-a1573130.html][Geizhals]] | [[https://www.google.com/search?q=Edifier+R1280DB+buy&tbm=shop][Google Buy]]
+- *Links:* [[https://www.google.com/search?q=Edifier+R1280DB][Google]] | [[https://www.ebay.de/sch/i.html?_nkw=Edifier+R1280DB&LH_SellerType=2][eBay Pro]]
 
 *** Warum dieses Teil?
 Das Modell R1280DB verfügt über einen integrierten optischen Digitaleingang (Toslink). Dies ist für die geplante Kabeldistanz von 10 Metern zwischen Server und Lautsprecherstandort die technisch überlegene Lösung: Die Übertragung via Lichtleiter ist vollkommen immun gegen elektromagnetische Einstreuungen und verhindert zuverlässig das bei Analogkabeln typische Netzbrummen. Die Hardware-Regler für Bass und Höhen an der Gehäuseseite bleiben für die intuitive Bedienung (KISS) erhalten, um die Sprachverständlichkeit im Klassenraum ohne Software-Eingriffe zu optimieren.
@@ -355,16 +366,19 @@ Das Modell R1280DB verfügt über einen integrierten optischen Digitaleingang (T
 
 *** Nachteile
 - Erfordert einen Toslink-Ausgang am Server (wird über USB-Konverter realisiert)
-- Optische Kabel sind empfindlicher gegenüber extrem engen Biegeradien (muss bei Verlegung im Kabelkanal beachtet werden)
+- Optische Kabel sind empfindlicher gegenüber extrem engen Biegeradien (muss bei der Verlegung auf Putz beachtet werden)
 
 *** Alternativen
 - Edifier R1700DB (Höhere Leistung, jedoch ebenfalls höherer Preis pro Paar)
+
+*** Montage-Hinweis
+- Die Lautsprecher werden auf kleine Konsolen an der Wand in nicht störender Höhe montiert (Tischleraufgabe).
 
 ** Audio: USB zu TOSLINK (optisch) Konverter
 - *Teilenummer:* Cubilux USB-A zu TOSLINK Konverter (oder baugleich)
 - *Stückpreis:* ca. 20.00 €
 - *Menge:* 1
-- *Links:* [[https://www.google.com/search?q=USB+to+Toslink+Adapter+Linux+compatible][Google Buy]]
+- *Links:* [[https://www.google.com/search?q=USB+zu+TOSLINK+Konverter][Google]] | [[https://www.ebay.de/sch/i.html?_nkw=USB+zu+TOSLINK+Konverter&LH_SellerType=2][eBay Pro]]
 
 *** Warum dieses Teil?
 Da das ASRock Rack Server-Mainboard keinen optischen Ausgang besitzt, fungiert dieser winzige USB-Dongle als digitale Brücke. Er wird unter Linux als Standard-Audiogerät erkannt (Plug & Play) und gibt das Signal bitgenau an das optische Kabel weiter.
@@ -373,18 +387,19 @@ Da das ASRock Rack Server-Mainboard keinen optischen Ausgang besitzt, fungiert d
 - *Teilenummer:* Generisch (z.B. Wentronic oder Amazon Basics Toslink)
 - *Stückpreis:* ca. 12.00 €
 - *Menge:* 1
+- *Links:* [[https://www.google.com/search?q=Toslink+Kabel+10m][Google]] | [[https://www.ebay.de/sch/i.html?_nkw=Toslink+Kabel+10m&LH_SellerType=2][eBay Pro]]
 
 *** Warum dieses Teil?
 Lichtleiterkabel zur störungsfreien Übertragung des Audiosignals. Im Gegensatz zu Kupferkabeln kann dieses Kabel bedenkenlos parallel zu 230V-Stromleitungen verlegt werden, ohne dass Störgeräusche induziert werden.
 
 *** Montage-Hinweis für Elektriker
 - Das Lichtleiterkabel darf bei der Verlegung nicht geknickt werden und muss an den Ecken in sanftem Radius ≥ 3cm (Cola-Dose) verlegt werden.
-  
-  
+
 ** Cable: Lautsprecher-Verbindungskabel (Master-to-Slave), 18m
 - *Spezifikation:* 2-adrige Kupfer-Zwillingslitze (OFC empfohlen)
 - *Querschnitt:* 2.5 mm² (wegen 18m Leitungsweg)
 - *Menge:* 18 m (Meterware)
+- *Links:* [[https://www.google.com/search?q=Lautsprecherkabel+2.5mm+18m][Google]] | [[https://www.ebay.de/sch/i.html?_nkw=Lautsprecherkabel+2.5mm&LH_SellerType=2][eBay Pro]]
 
 *** Warum dieses Teil?
 Da der ICT-Room 13 m lang ist und die Kabelwege an der Wand/Decke geführt werden, muss die Distanz zwischen Aktiv- und Passivbox mit 18 m kalkuliert werden. Um Leistungsverluste und eine Verschlechterung des Dämpfungsfaktors zu vermeiden, wird ein deutlich dickerer Querschnitt als das Standard-Beipackkabel gewählt.
@@ -392,19 +407,21 @@ Da der ICT-Room 13 m lang ist und die Kabelwege an der Wand/Decke geführt werde
 *** Montage-Hinweis für Elektriker
 - Unbedingt auf korrekte Polarität achten (Phasenlage).
 - Das Kabel kann aufgrund des hohen Signalpegels unbedenklich parallel zu anderen Leitungen verlegt werden (kein Brummrisiko).
-  
-** Network: MikroTik RouterBOARD hAP ax2
-- *Teilenummer:* C52iG-5HaxD2HaxD-TC
-- *Stückpreis:* 79.96 €
+
+** Network: MikroTik RouterBOARD hAP ax3
+- *Teilenummer:* C53UiG+5HPaxD2HPaxD
+- *Stückpreis:* 0.00 € (1x Bestandsmaterial) / ca. 120.00 € (für redundantes Ersatzgerät)
 - *Menge:* 1 (Empfehlung: 2 zur redundanten Vorhaltung)
-- *Links:* [[https://mikrotik.com/product/hap_ax2][Offiziell]] | [[https://geizhals.de/mikrotik-routerboard-hap-ax2-c52ig-5haxd2haxd-tc-a2818617.html][Geizhals]] | [[https://www.google.com/search?q=MikroTik+hAP+ax2+buy&tbm=shop][Google Buy]] | [[https://www.ebay.com/sch/i.html?_nkw=MikroTik+hAP+ax2&LH_SellerType=2][eBay Pro]]
+- *Links:* [[https://www.google.com/search?q=MikroTik+hAP+ax3][Google]] | [[https://www.ebay.de/sch/i.html?_nkw=MikroTik+hAP+ax3&LH_SellerType=2][eBay Pro]]
 
 *** Warum dieses Teil?
-Bietet Enterprise-Routing-Funktionen bei sehr geringen Hardwarekosten. Für den reibungslosen Schulbetrieb ist das tiefgreifende Bandbreitenmanagement (Traffic Shaping / Queues) kritisch. Zudem ermöglicht das Betriebssystem (RouterOS) den Aufbau stabiler WireGuard-VPN-Tunnel durch Carrier-Grade-NAT-Verbindungen (Mobilfunk) für die Fernwartung.
+Das Gerät wird kostenneutral aus dem bestehenden Hardware-Fundus in das Projekt eingebracht. Es bietet Enterprise-Routing-Funktionen bei (in diesem Fall) null Initialkosten für das Primärgerät. Für den reibungslosen Schulbetrieb ist das tiefgreifende Bandbreitenmanagement (Traffic Shaping / Queues) kritisch. Zudem ermöglicht das Betriebssystem (RouterOS) den Aufbau stabiler WireGuard-VPN-Tunnel durch Carrier-Grade-NAT-Verbindungen (Mobilfunk) für die Fernwartung. Im Vergleich zu kleineren Modellen bietet der ax3 externe Antennen für eine bessere WLAN-Abdeckung im Klassenraum sowie höhere CPU-Reserven für das Firewall-Regelwerk.
 
 *** Vorteile
+- Keine Anschaffungskosten für das primäre Gerät
 - Vollständiger Enterprise-Funktionsumfang (RouterOS)
 - Hohe Stabilität bei VPN- und QoS-Aufgaben
+- Höhere Leistungsreserven und bessere WLAN-Reichweite als beim ax2
 
 *** Nachteile
 - Komplexe Konfiguration erfordert Fachwissen
@@ -416,21 +433,19 @@ Bietet Enterprise-Routing-Funktionen bei sehr geringen Hardwarekosten. Für den 
 - *Teilenummer:* CRS326-24G-2S+RM
 - *Stückpreis:* ca. 140.00 €
 - *Menge:* 1
-- *Links:* Offiziell | Geizhals | Google Buy | eBay Pro
+- *Links:* [[https://www.google.com/search?q=MikroTik+CRS326-24G-2S%2BRM][Google]] | [[https://www.ebay.de/sch/i.html?_nkw=MikroTik+CRS326-24G-2S%2BRM&LH_SellerType=2][eBay Pro]]
 
 *** Warum dieses Teil?
 Dieser Switch bildet das zentrale Rückgrat des Klassenzimmer-Netzwerks. Das Modell stellt 24 Gigabit-Ports für die Schüler-Clients zur Verfügung und verfügt zusätzlich über zwei 10-Gigabit-SFP+-Ports. Diese schnellen Uplinks sind eine technische Notwendigkeit, um einen Datenflaschenhals zum Server zu verhindern, wenn 20 Thin-Clients zeitgleich über das Netzwerk booten oder speicherintensive Anwendungen laden. Zudem fügt sich das Gerät nahtlos in das Netzwerk-Ökosystem des MikroTik-Routers ein.
 
-Als Backup-Strategie wird aus Gründen der Kosteneffizienz auf die Beschaffung eines redundanten Ersatzgeräts verzichtet. Stattdessen wird der in der Schule bereits vorhandene 100-MBit/s-Switch als Ausfallsicherung ("Cold Standby") definiert und physisch vorgehalten. Bei einem Hardwaredefekt des primären Switches sichert dieses Bestandsgerät die grundlegende Netzwerkkonnektivität, bis ein adäquater Ersatz beschafft werden kann.
+Sollte das Gerät wider Erwarten ausfallen, muss zur schnellen Wiederherstellung des Betriebs ein Ersatzgerät lokal in Moshi beschafft werden.
 
 *** Vorteile
 - Vermeidung von Netzwerk-Engpässen durch 10G-Uplink-Fähigkeit
-- Sehr kosteneffizientes Ausfall-Konzept durch Weiternutzung von Bestands-Hardware
 - Lüfterloses Design zur Reduktion von Staubansammlungen im Geräteinneren
 
 *** Nachteile
 - Für die Verbindung zu den RJ45-Ports des Servers wird ein zusätzliches Transceiver-Modul (SFP+ auf RJ45, z.B. MikroTik S+RJ10) benötigt
-- Bei Eintreten des Fehlerfalls (Betrieb über den 100-MBit/s-Backup-Switch) wird die Systemperformance der Thin-Clients reduziert
 
 *** Alternativen
 - TP-Link TL-SG1024DE (Kostengünstiger in der Anschaffung, limitiert den Server-Uplink jedoch auf 1 GBit/s). Dies steht jedoch nicht in einem adäquaten Verhältnis zur Kosteneinsparung
@@ -439,7 +454,7 @@ Als Backup-Strategie wird aus Gründen der Kosteneffizienz auf die Beschaffung e
 - *Teilenummer:* Generisch (FS.com oder 10Gtek, geflasht für MikroTik)
 - *Stückpreis:* ca. 45.00 - 60.00 €
 - *Menge:* 1
-- *Links:* Geizhals | Google Buy | eBay Pro
+- *Links:* [[https://www.google.com/search?q=10GBASE-T+SFP%2B+RJ45+Transceiver+MikroTik][Google]] | [[https://www.ebay.de/sch/i.html?_nkw=10GBASE-T+SFP%2B+RJ45+Transceiver+MikroTik&LH_SellerType=2][eBay Pro]]
 
 *** Warum dieses Teil?
 Dieses Modul fungiert als zwingende physische Brücke, um die 10-Gigabit-Kupferanschlüsse (RJ45 Base-T) des Server-Mainboards mit den SFP+-Steckplätzen des zentralen Switches zu verbinden. Ohne diesen Transceiver bliebe der Hochgeschwindigkeits-Uplink ungenutzt. Anstatt teurer Herstellermodule wird hier auf den Enterprise-Goldstandard von Drittanbietern (wie FS.com oder 10Gtek) gesetzt. Diese Anbieter programmieren die Module exakt auf die MikroTik-Spezifikationen, nutzen identische Chipsätze und bieten bei geringeren Kosten die gleiche Zuverlässigkeit.
@@ -479,7 +494,7 @@ Die Konfektionierung der Netzwerkkabel erfolgt im Rahmen eines Praxisprojekts du
 - *Teilenummer:* ST7300U3M
 - *Stückpreis:* 82.40 €
 - *Menge:* 1
-- *Links:* [[https://www.startech.com/en-us/cards-adapters/st7300u3m][Offiziell]] | [[https://geizhals.de/startech-7-port-industrial-usb-3-0-hub-st7300u3m-a1103756.html][Geizhals]] | [[https://www.google.com/search?q=StarTech+ST7300U3M+buy&tbm=shop][Google Buy]] | [[https://www.ebay.com/sch/i.html?_nkw=StarTech+ST7300U3M&LH_SellerType=2][eBay Pro]]
+- *Links:* [[https://www.google.com/search?q=StarTech+ST7300U3M][Google]] | [[https://www.ebay.de/sch/i.html?_nkw=StarTech+ST7300U3M&LH_SellerType=2][eBay Pro]]
 
 *** Warum dieses Teil?
 Der Industrie-USB-Hub verfügt über ein robustes, verschraubbares Metallgehäuse. Er schützt vor den zu erwartenden mechanischen Belastungen im Schulalltag und garantiert eine hohe Anzahl an Steckzyklen, welche bei regulären Kunststoff-Consumer-Geräten frühzeitig zu Materialermüdung führen würden.
@@ -500,7 +515,7 @@ In die Ports des USB-Hubs werden die kurzen Opferkabel (15cm) gesteckt, so dass 
 - *Teilenummer:* 920-002479
 - *Stückpreis:* 8.85 €
 - *Menge:* 22
-- *Links:* [[https://www.logitech.com/en-us/products/keyboards/k120-usb-keyboard-business.920-002478.html][Offiziell]] | [[https://geizhals.de/logitech-k120-keyboard-for-business-920-002479-a541019.html][Geizhals]] | [[https://www.google.com/search?q=Logitech+K120+US+buy&tbm=shop][Google Buy]] | [[https://www.ebay.com/sch/i.html?_nkw=Logitech+K120+US+ANSI&LH_SellerType=2][eBay Pro]]
+- *Links:* [[https://www.google.com/search?q=Logitech+K120+US+Layout][Google]] | [[https://www.ebay.de/sch/i.html?_nkw=Logitech+K120+US+Layout&LH_SellerType=2][eBay Pro]]
 
 *** Warum dieses Teil?
 Das US-Tastaturlayout ist internationaler Standard und förderlich für die informationstechnische Ausbildung (Programmierung). Die Tastaturen sind spritzwassergeschützt und primär als kostengünstige Verschleißteile kalkuliert. Die Beschaffung in größeren Stückzahlen garantiert eine redundante Vorhaltung von Ersatzteilen vor Ort.
@@ -519,13 +534,13 @@ Das US-Tastaturlayout ist internationaler Standard und förderlich für die info
 - *Teilenummer:* 910-003357
 - *Stückpreis:* 3.56 €
 - *Menge:* 25
-- *Links:* [[https://www.logitech.com/en-us/products/mice/b100-usb-mouse.910-001439.html][Offiziell]] | [[https://geizhals.de/logitech-b100-optical-mouse-910-003357-a810968.html][Geizhals]] | [[https://www.google.com/search?q=Logitech+B100+buy&tbm=shop][Google Buy]] | [[https://www.ebay.com/sch/i.html?_nkw=Logitech+B100&LH_SellerType=2][eBay Pro]]
+- *Links:* [[https://www.google.com/search?q=Logitech+B100+Optical+Mouse+USB][Google]] | [[https://www.ebay.de/sch/i.html?_nkw=Logitech+B100+Optical+Mouse+USB&LH_SellerType=2][eBay Pro]]
 
 *** Warum dieses Teil?
 Optische Maus mit symmetrischem Design (geeignet für Links- und Rechtshänder). Durch den optischen Sensor unempfindlich gegenüber Staubeinlagerungen. Auch diese Komponente ist budgetseitig als Verbrauchsmaterial für den schnellen Austausch bei Kabelbrüchen konzipiert.
 
 *** Vorteile
-- Ambidextröses Design
+- Beidhändiges Design
 - Äußerst kosteneffizient
 
 *** Nachteile
@@ -538,7 +553,7 @@ Optische Maus mit symmetrischem Design (geeignet für Links- und Rechtshänder).
 - *Teilenummer:* Generisch / Herstellerunabhängig
 - *Stückpreis:* ca. 4.00 - 9.00 € (Tagespreis, abhängig von Gebindegröße)
 - *Menge:* 22
-- *Links:* Geizhals | Google Buy | eBay Pro
+- *Links:* [[https://www.google.com/search?q=DisplayPort+auf+HDMI+Kabel+1m][Google]] | [[https://www.ebay.de/sch/i.html?_nkw=DisplayPort+auf+HDMI+Kabel+1m&LH_SellerType=2][eBay Pro]]
 
 *** Warum dieses Teil?
 Dieses Kabel wandelt das digitale DisplayPort-Signal der HP-Rechner nativ in ein HDMI-Signal für die Monitore um und eliminiert die typische Unschärfe analoger VGA-Verbindungen. Die Beschaffungsstrategie für diese Komponente lautet strikt "Lowest Cost": Die Kabel werden herstellerunabhängig nach dem günstigsten Stückpreis (bevorzugt in Bulk- oder Mehrfachpackungen wie 5er-/10er-Sets) eingekauft. Ein Längenmaß von ca. 0,9 bis 1,0 Metern ist zwingend einzuhalten, um Kabelüberhänge und damit einhergehende mechanische Trittbelastungen unter den Schreibtischen im Vorfeld zu minimieren.
@@ -559,15 +574,15 @@ Dieses Kabel wandelt das digitale DisplayPort-Signal der HP-Rechner nativ in ein
 - *Teilenummer:* Generisch / Herstellerunabhängig
 - *Stückpreis:* ca. 2.00 - 5.00 € (Tagespreis)
 - *Menge:* 7
-- *Links:* Geizhals | Google Buy | eBay Pro
+- *Links:* [[https://www.google.com/search?q=USB-A+3.0+Verl%C3%A4ngerungskabel+kurz][Google]] | [[https://www.ebay.de/sch/i.html?_nkw=USB-A+3.0+Verl%C3%A4ngerungskabel+kurz&LH_SellerType=2][eBay Pro]]
 
 *** Warum dieses Teil?
-Diese kurze USB-Verlängerung fungiert als mechanische Zugentlastung und physischer Puffer ("Opferkabel"). Sie verhindert die direkte Abnutzung oder Zerstörung der in die Mainboards integrierten Client-Schnittstellen durch fehlerhaftes oder gewaltsames Einstecken von USB-Medien seitens der Nutzer. Auch hier greift eine herstellerneutrale Beschaffungsstrategie mit Fokus auf den geringsten Stückpreis. Bei einem physischen Defekt muss lediglich das extrem kostengünstige Verlängerungskabel ausgetauscht werden. Eine strikte Begrenzung der Länge (15 bis 30 cm) ist zwingend, um ein sauberes Kabelmanagement auf den Tischen zu gewährleisten.
+Diese kurze USB-Verlängerung fungiert als mechanische Zugentlastung und physischer Puffer ("Opferkabel") für den Server. Sie verhindert die direkte Abnutzung oder Zerstörung der teuren Industrie-USB-Hub-Schnittstellen (StarTech) durch ständiges Einstecken von USB-Medien. Auf eine Ausstattung der Schüler-PCs mit Opferkabeln wird aus optischen Gründen verzichtet. Bei einem physischen Defekt muss lediglich das extrem kostengünstige Verlängerungskabel ausgetauscht werden. Eine strikte Begrenzung der Länge (15 bis 30 cm) ist zwingend, um ein sauberes Kabelmanagement zu gewährleisten.
 
 *** Vorteile
-- Effektiver mechanischer Schutz der primären Client-Hardware
+- Effektiver mechanischer Schutz der Server-Peripherie
 - Minimale Ersatzteilkosten bei Verschleiß oder Vandalismus
-- Kurze Kabelwege reduzieren Unordnung am Arbeitsplatz
+- Kurze Kabelwege reduzieren Unordnung
 
 *** Nachteile
 - Zusätzliche Steckverbindung als potenzielle elektronische Fehlerquelle
@@ -581,7 +596,7 @@ Diese kurze USB-Verlängerung fungiert als mechanische Zugentlastung und physisc
 - *Teilenummer:* N/A
 - *Stückpreis:* 4.29 €
 - *Menge:* 1
-- *Links:* N/A | N/A | [[https://www.google.com/search?q=USB-A+USB-C+dust+caps+buy&tbm=shop][Google Buy]] | [[https://www.ebay.com/sch/i.html?_nkw=USB+dust+caps&LH_SellerType=2][eBay Pro]]
+- *Links:* [[https://www.google.com/search?q=USB+Silicon+Dust+Caps][Google]] | [[https://www.ebay.de/sch/i.html?_nkw=USB+Silicon+Dust+Caps&LH_SellerType=2][eBay Pro]]
 
 *** Warum dieses Teil?
 Eine extrem kosteneffiziente Maßnahme ("Hardware-Hardening") zum physischen Verschluss ungenutzter Schnittstellen. Es blockiert primär das Eindringen von Feinstaub in Gehäuse und Anschlüsse. Sekundär unterbindet es den Versuch von Nutzern, Peripheriegeräte gewaltsam in nicht autorisierte Ports zu stecken.
