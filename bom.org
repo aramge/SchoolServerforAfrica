@@ -1,4 +1,4 @@
-#+CAPTION: Bill of Materials (BOM) - Ngaruma ICT-Room
+#+CAPTION: Bill of Materials (BOM)
 | No. | Description                                         | Qty | Unit Price |   Total |
 |-----+-----------------------------------------------------+-----+------------+---------|
 |   1 | ATX Midi-Tower Case (incl. local assembly)          |   1 |     170.00 |  170.00 |
