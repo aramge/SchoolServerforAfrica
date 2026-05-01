@@ -1,0 +1,76 @@
+#+Title: Implementation Roadmap: School Server Africa
+#+Author: Axel Ramge
+#+Date: 2026-04-29
+
+* Phase 1: The Network Foundation (MikroTik)
+** 1.1 Basic Configuration MikroTik hAP ax3
+- [ ] Reset router to factory defaults (use Netinstall if necessary).
+- [ ] Configure WAN interface (DHCP client or PPPoE, depending on connection).
+- [ ] Create LAN bridge (group ports 2-5 and Wi-Fi).
+- [ ] Assign IP address to the LAN bridge (e.g., =10.0.0.1/24=).
+
+** 1.2 Base Services on the MikroTik
+- [ ] Setup DHCP server on the LAN bridge (range e.g., =10.0.0.100 - 10.0.0.254=).
+- [ ] Enable NAT / Masquerading for outbound routing (WAN).
+- [ ] DNS Settings: Set upstream to Cloudflare Family (=1.1.1.3=, =1.0.0.3=).
+- [ ] Enable NTP client (fetch time from the internet).
+- [ ] Enable NTP server (distribute time to the local network).
+
+* Phase 2: The Hypervisor (px1)
+** 2.1 Proxmox Bare Metal Installation (N100)
+- [ ] Write the latest Proxmox ISO to a USB flash drive via =dd= (direct mode).
+- [ ] Boot the N100 from the USB drive.
+- [ ] Perform installation (File system: ZFS (RAID0/Single Disk), assign static IP, e.g., =10.0.0.10/24=, Gateway/DNS =10.0.0.1=).
+- [ ] Reboot into the fresh system.
+
+** 2.2 Proxmox Basic Configuration & etckeeper
+- [ ] Login via SSH (as =root=).
+- [ ] Comment out the Enterprise repo in =/etc/apt/sources.list.d/pve-enterprise.list=.
+- [ ] Add the No-Subscription repo.
+- [ ] Update the system (=apt update && apt full-upgrade -y=).
+- [ ] Install etckeeper: =apt install etckeeper git=
+- [ ] Check the first initial commit: =cd /etc && git status=
+
+* Phase 3: The Management Layer
+** 3.1 The Management LXC
+- [ ] Download the latest Debian LXC template in Proxmox.
+- [ ] Create container "mgmt01" (unprivileged) (e.g., IP =10.0.0.20/24=).
+- [ ] Generate and deploy SSH keys (disable password login).
+- [ ] Install Ansible in the container: =apt install ansible git=.
+- [ ] Create initial Git directory structure (=/root/ansible-school/=) for playbooks.
+
+* Phase 4: The Boot Protocol & Network Services
+** 4.1 The Web Server (Apache LXC)
+- [ ] Create container "web01" (e.g., IP =10.0.0.30/24=).
+- [ ] Install Apache2 (=apt install apache2=).
+- [ ] Create directory for iPXE files (e.g., =/var/www/html/boot/=).
+
+** 4.2 Generate & Deploy iPXE Images
+- [ ] Prepare minimal Debian root file system (=squashfs=) for the Thin Clients (on mgmt01 or your Mac).
+- [ ] Extract kernel (=vmlinuz=) and =initrd= of the Debian system.
+- [ ] Write an iPXE boot script (=boot.ipxe=) that loads the kernel/initrd via HTTP from the Apache LXC.
+- [ ] Copy files (=vmlinuz=, =initrd=, =squashfs=, =boot.ipxe=) to =/var/www/html/boot/= on the Apache LXC.
+
+** 4.3 Adjust DHCP Options in MikroTik (TFTP/iPXE)
+- [ ] In MikroTik DHCP: Set "Boot File Name" to the iPXE binary.
+- [ ] Point "Next Server" to the IP of the iPXE TFTP server (can be px1 or MikroTik itself, depending on setup).
+- [ ] Configure DHCP so that iPXE clients are redirected to the URL =http://10.0.0.30/boot/boot.ipxe=.
+
+* Phase 5: Storage & User Management
+** 5.1 The Storage LXC
+- [ ] Create privileged LXC "storage01".
+- [ ] On the PVE host: Create ZFS dataset for student homes.
+- [ ] Pass through the dataset via bind-mount into "storage01".
+- [ ] Install NFS kernel server in "storage01" and export the passed-through directory.
+
+** 5.2 User Management (LLDAP)
+- [ ] Create container "ldap01".
+- [ ] Install Docker (easiest for LLDAP).
+- [ ] Spin up the LLDAP container.
+- [ ] Create test user.
+
+* Phase 6: The Thin Clients
+** 6.1 PXE Boot Test
+- [ ] Connect the "ancient PC" to the network.
+- [ ] In BIOS: Set Network Boot (PXE) as the first option.
+- [ ] Boot. Verify if it receives an IP from MikroTik, loads iPXE, and pulls the Debian image from Apache.

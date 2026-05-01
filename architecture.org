@@ -1,0 +1,45 @@
+#+Title: School Server Software Architecture
+#+Author: Axel Ramge
+#+Date: 2026-04-30
+
+* Router: MikroTik hAP ax3
+- Firewall, Masquerading (NAT)
+- DHCP server with pointer to iPXE/TFTP server (Boot process)
+- Upstream DNS: Cloudflare Family (1.1.1.3 / 1.0.0.3) for zero-maintenance filtering of malware and adult content
+- NTP master for the entire local network
+- Isolated Wi-Fi for students
+- Wireguard for remote management
+
+* px1: Proxmox School Server
+** Infrastructure & Management
+- Management LXC for administration (Admin entry point)
+- Ansible (running in Management LXC) for configuration management
+- etckeeper on the host (Git tracking for /etc and /usr/local/etc)
+- UPS integration via NUT (Network UPS Tools)
+- Backup: "The African Way" – Weekly rotation of two rugged USB drives
+  - vzdump for LXC backups to USB
+  - Cronjob for host configuration backup to USB
+
+** Network & Core Services
+- apt-cacher-ng (LXC) for massive internet traffic reduction
+- Apache2 (LXC or Host) as central web server
+  - Delivery of iPXE boot images (HTTP)
+  - Local documentation / School portal
+- Kiwix server (LXC) for bandwidth-independent offline knowledge (Wikipedia, Khan Academy, ZIM files)
+- LLDAP / LAM (LXC) as lightweight user management (for approx. 120 students; 60 incoming, 60 outgoing annually)
+
+** Storage & User Data
+- Storage LXC (privileged) manages ZFS datasets for students (with quotas)
+- Exports user homes via NFS to the Thin Client LXCs
+- "The Teacher's Desk" (Das Lehrpult): NFS mounts for straightforward file exchange
+  - `/media/ClassMaterial` (Read-Only for students, Read-Write for teachers)
+  - `/media/DropBox` (Write-Only for students, Drop-In for assignments)
+
+** Desktop Environments & Student LXCs
+- 20x LXC containers (Debian) with Firefox, LibreOffice, text editors, programming languages (Python, Javascript, etc.), LibreCAD, FreeCAD, nginx web server, databases, etc.
+- XFCE4, xrdp, pam_mount (NFS-Home & Teacher's Desk integration)
+- Pre-installed Nginx in every student LXC (for learning and experimenting)
+
+* Thin Clients (20x Refurbished Business PCs)
+- Diskless, booting via iPXE
+- Kiosk mode: Direct start of xfreerdp in fullscreen

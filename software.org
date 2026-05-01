@@ -1,0 +1,59 @@
+inotify-tools
+ntfs3g # Für Windows-Festplatten (NTFS)
+python3
+# abduco
+#   bash
+bat
+btop
+exfat # Für moderne SD-Karten/Sticks (ExFAT)
+#   fd
+git
+hunspell
+hunspellDicts.de_DE
+hunspellDicts.en_US-large
+hyphenDicts.de_DE
+hyphenDicts.en_US
+# hunspell, hyphen Swahili falls verfügbar
+ripgrep
+#sops
+#tmux
+unzip
+usbutils
+vim
+zip
+#zsh
+#adwaita-icon-theme
+#alsa-utils
+chromium
+#darktable
+dbeaver-bin
+#foot
+freecad
+fzf
+#ghostty
+gimp
+#gnucash
+#grim
+inkscape
+keepassxc
+#kitty
+#libinput-gestures
+libreoffice
+librecad
+#mediathekview
+#networkmanagerapplet
+#pavucontrol
+#pulseaudio
+#rclone
+#remmina
+rofi
+#slurp Sollte bei xfce dabei sein
+sqlite
+texlive.combined #??? light-version
+#tigervnc
+vlc
+#wasistlos
+#wl-clipboard
+#wtype
+
+Außerdem noch ein guter moderner Editor. Z.B. Am liebsten zed, sonst Visual Studio Code
