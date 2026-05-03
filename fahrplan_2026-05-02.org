@@ -1,0 +1,11 @@
+- apt-cacher installieren und einbinden, als Proxy in die Builds integrieren
+- DNS-Server auf RouterOS installieren
+- ansible-proxmox community installieren und verwenden
+- ct1001 destroyen. Neubau from Scratch
+- Software-Hygiene Python, ansible. Besser in dedizierter Entwicklung ausführen?
+- nonfree, contrib, nonfree-firmware für alle hosts
+- Test der Funktionsfähigkeit des Zugangs von ct1001 from scratch
+- Dynamische MAC-Adresse des Thin Clients unterbinden
+- Die MAC-IP-Tabelle in web01 dynamisch aus ansible generieren
+- Administratoren. Root Account verwenden? Github.com?
+- ldap-Server?

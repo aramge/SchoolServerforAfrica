@@ -4,7 +4,7 @@
 #+OPTIONS: toc:2
 
 * Overview and Core Principles
-This document outlines the network architecture for the Ngaruma School deployment in Tanzania. 
+This document outlines the network architecture for the Ngaruma School deployment in Tanzania.
 
 ** Core Principles applied:
 - *Keep it simple, stupid! (KISS)*: IPv6 is completely disabled to reduce overhead and troubleshooting complexity. Security relies on simple, robust Layer-2 isolation and firewall rules rather than complex routing.
@@ -14,12 +14,12 @@ This document outlines the network architecture for the Ngaruma School deploymen
 * IP Addressing & Subnet Architecture
 The network is divided into four distinct logical zones. VLANs are only used where technically necessary to transport multiple networks over a single trunk cable.
 
-| Subnet         | Name            | VLAN ID | Interface / Port            | Purpose & Access Status                          |
+| Subnet         | Name            | VLAN ID | Interface / Port            | Purpose & Access Status                                  |
 |----------------+-----------------+---------+-----------------------------+--------------------------------------------------|
-| 192.168.88.0/24| Admin & Mgmt    | 1 (unt) | Bridge / ether2-4 / wifi1   | Core management, Proxmox Host, Full access.      |
-| 192.168.89.0/24| Teachers        | 89      | vlan-teachers / wifi-teach  | Teacher PCs and Teacher Wi-Fi.                   |
-| 192.168.90.0/24| Students Wired  | 90      | vlan-students               | Thin Clients booting via PXE from Proxmox.       |
-| 192.168.91.0/24| Students Wi-Fi  | None    | wifi2 (Isolated)            | Isolated 2.4GHz Wi-Fi for student devices.       |
+| 172.20.0.0/24  | Admin & Mgmt    | 1 (unt) | Bridge / ether2-4 / wifi1   | Core management, Proxmox Host, Full access.      |
+| 172.20.89.0/24 | Teachers        | 89      | vlan-teachers / wifi-teach  | Teacher PCs and Teacher Wi-Fi.                   |
+| 172.20.90.0/24 | Students Wired  | 90      | vlan-students               | Thin Clients booting via PXE from Proxmox.       |
+| 172.20.91.0/24 | Students Wi-Fi  | None    | wifi2 (Isolated)            | Isolated 2.4GHz Wi-Fi for student devices.       |
 
 * Hardware Layout & Port Assignment
 
@@ -28,7 +28,7 @@ Acts as the central gateway, DHCP server, and firewall.
 
 - *ether5*: WAN Uplink (DHCP Client from cellular modem).
 - *ether1*: Trunk to Switch (VLAN 1 Untagged, VLAN 89 Tagged, VLAN 90 Tagged). *Note: PoE-out is strictly disabled here.*
-- *ether2 - ether4*: Local Admin/Management access (Untagged, 192.168.88.x).
+- *ether2 - ether4*: Local Admin/Management access (Untagged, 172.20.0.x).
 - *wifi1 (5GHz)*: SSID = =NgarumaAdmin=. Core management Wi-Fi.
 - *wifi-teachers (5GHz Virtual)*: SSID = =NgarumaTeachers=. Mapped to VLAN 89.
 - *wifi2 (2.4GHz)*: SSID = =NgarumaStudents=. Hard-removed from the bridge for Layer-2 isolation. 20MHz channel width for maximum penetration through clay walls.
@@ -52,7 +52,7 @@ All networks are forced to use Cloudflare Family DNS (=1.1.1.3=, =1.0.0.3=) for 
 
 ** Access Control & Isolation
 - *SSH*: Password authentication is completely disabled. Ed25519 public key authentication is strictly enforced. Strong-crypto is enabled.
-- *Student Wi-Fi Isolation*: A firewall forward-chain drop rule prevents any traffic originating from =192.168.91.0/24= from reaching the local LANs (=192.168.88.0/24=, =.89.0/24=, =.90.0/24=). Students only have internet access. Client isolation (station-roaming=no) is active.
+- *Student Wi-Fi Isolation*: A firewall forward-chain drop rule prevents any traffic originating from =172.20.91.0/24= from reaching the local LANs (=172.20.0.0/24=, =.89.0/24=, =.90.0/24=). Students only have internet access. Client isolation (station-roaming=no) is active.
 
 ** System Settings
 - *Timezone*: Africa/Dar_es_Salaam (EAT).
@@ -60,37 +60,37 @@ All networks are forced to use Cloudflare Family DNS (=1.1.1.3=, =1.0.0.3=) for 
 - *Hardware LEDs*: Controlled via script bound to the physical mode-button ("dark-mode").
 
 * Operational Notes & Maintenance
-- *Emergency Access*: If locked out via VLANs, connect a laptop to =ether2= on the hAP ax3. It defaults to the native =192.168.88.x= management subnet.
+- *Emergency Access*: If locked out via VLANs, connect a laptop to =ether2= on the hAP ax3. It defaults to the native =172.20.0.x= management subnet.
 - *Adding a new Teacher Wi-Fi*: Can be done by creating a new Virtual AP bound to =wifi1= and setting =datapath.vlan-id=89=.
-- *Proxmox LXC Networking*: When creating a container for students (e.g., Pi-hole or specific services), set the network interface tag to =90= in the Proxmox GUI. It will receive a =192.168.90.x= IP from the MikroTik DHCP server.
+- *Proxmox LXC Networking*: When creating a container for students (e.g., Pi-hole or specific services), set the network interface tag to =90= in the Proxmox GUI. It will receive a =172.20.90.x= IP from the MikroTik DHCP server.
 
 * Server & Container IP Allocation
-To maintain the "Keep it simple, stupid!" principle and prevent routing bottlenecks over the 400m uplink to the router, high-bandwidth services are placed directly into the required VLANs via multi-homing. Traffic between LXCs in the same VLAN never leaves the Proxmox internal bridge (=vmbr0=).
+To maintain the "Keep it simple, stupid!" principle, all LXC containers and end-user devices are configured for DHCP. The MikroTik router assigns fixed IPs via static leases (=sLease=) based on MAC addresses. Only the core physical infrastructure (Router =hapax3=, Proxmox Host =px1=) retains hardcoded static IPs to prevent lockouts if the DHCP service fails.
 
-All static IPs are assigned below the DHCP pool threshold (.100).
+All =sLease= IPs are assigned below the dynamic DHCP pool threshold (.100).
 
 ** 1. Infrastructure Core (Untagged / Management)
 These services only require access from the Admin network.
 
-| Hostname      | IP Address    | Network / VLAN | Purpose                                    |
-|---------------+---------------+----------------+--------------------------------------------|
-| px1           | 192.168.88.10 | Admin (Untag)  | Proxmox Virtualization Environment Host    |
-| mgmt1         | 192.168.88.11 | Admin (Untag)  | Ansible, Scripts, etckeeper (LXC)          |
-| lldap         | 192.168.88.12 | Admin (Untag)  | LLDAP / LAM Directory Services (LXC)       |
-| apt-cacher    | 192.168.88.13 | Admin (Untag)  | apt-cacher-ng proxy (LXC)                  |
+| Hostname      | IP Address    | Type   | Network / VLAN | Purpose                                    |
+|---------------+---------------+--------+----------------+--------------------------------------------|
+| px1           | 172.20.0.10   | Static | Admin (Untag)  | Proxmox Virtualization Environment Host    |
+| mgmt1         | 172.20.0.11   | sLease | Admin (Untag)  | Ansible, Scripts, etckeeper (LXC)          |
+| lldap         | 172.20.0.12   | sLease | Admin (Untag)  | LLDAP / LAM Directory Services (LXC)       |
+| apt-cacher    | 172.20.0.13   | sLease | Admin (Untag)  | apt-cacher-ng proxy (LXC)                  |
 
 ** 2. Shared Services (Multi-Homed)
-These LXCs receive multiple virtual network interfaces in Proxmox (e.g., eth0=untagged, eth1=tag 89, eth2=tag 90). Clients connect to the IP in their respective subnet to keep traffic strictly on Layer 2.
+These LXCs receive multiple virtual network interfaces in Proxmox (e.g., eth0=untagged, eth1=tag 89, eth2=tag 90) all set to DHCP. Clients connect to the IP in their respective subnet to keep traffic strictly on Layer 2.
 
-| Hostname      | IP Addresses                                       | Purpose                                            |
-|---------------+----------------------------------------------------+----------------------------------------------------|
-| storage01     | .88.20 (Admin), .89.20 (Teachers), .90.20 (Students)| ZFS NFS Exports (Homes, Lehrpult, Briefkasten)     |
-| web01         | .88.21 (Admin), .89.21 (Teachers), .90.21 (Students)| Apache2 (Portal, iPXE HTTP-Boot images)            |
-| kiwix01       | .88.22 (Admin), .89.22 (Teachers), .90.22 (Students)| Offline Wikipedia / Khan Academy                   |
+| Hostname      | IP Addresses                                       | Type   | Purpose                                            |
+|---------------+----------------------------------------------------+--------+----------------------------------------------------|
+| storage01     | .0.20 (Admin), .89.20 (Teachers), .90.20 (Students)| sLease | ZFS NFS Exports (Homes, Lehrpult, Briefkasten)     |
+| web01         | .0.21 (Admin), .89.21 (Teachers), .90.21 (Students)| sLease | Apache2 (Portal, iPXE HTTP-Boot images)            |
+| kiwix01       | .0.22 (Admin), .89.22 (Teachers), .90.22 (Students)| sLease | Offline Wikipedia / Khan Academy                   |
 
 ** 3. Student Environments & Endpoints
-| Hostname      | IP Address (Range)     | Network / VLAN | Purpose                                    |
-|---------------+------------------------+----------------+--------------------------------------------|
-| lxc-studentNN | 192.168.90.51 - .70    | Students (90)  | 20x XFCE4 Workspaces (RDP Targets, Static) |
-| thin-clients  | DHCP (.100 - .254)     | Students (90)  | Physical Business PCs (iPXE Boot -> RDP)   |
-| teacher-pcs   | DHCP (.100 - .254)     | Teachers (89)  | Physical Teacher PCs or BYOD               |
+| Hostname      | IP Address (Range)     | Type          | Network / VLAN | Purpose                                    |
+|---------------+------------------------+---------------+----------------+--------------------------------------------|
+| lxc-studentNN | 172.20.90.51 - .70     | sLease        | Students (90)  | 20x XFCE4 Workspaces (RDP Targets)         |
+| thin-clients  | .151 - .170            | sLease        | Students (90)  | Physical Business PCs (iPXE Boot -> RDP)   |
+| teacher-pcs   | .100 - .254            | sLease / DHCP | Teachers (89)  | School PCs (sLease) & Teacher BYOD (DHCP)  |

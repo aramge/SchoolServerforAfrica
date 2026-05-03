@@ -1,0 +1,65 @@
+#+TITLE: Disaster Recovery Guide - Proxmox School Server (px1)
+#+AUTHOR: Axel Ramge
+#+DATE: 2026-05-03
+#+OPTIONS: toc:2
+
+* Overview
+This document describes the steps to restore the Proxmox School Server (px1) from the ZFS-based backup stored on mbp2.
+
+** Backup Details
+- Backup Server (mbp2): =172.20.0.254=
+- Remote User: =ramge=
+- Remote Path: =~/sync/gh/NgarumaVTC/SchoolServerforAfrica/backup/2026-05-03_Debian/=
+- Disk Target: =/dev/nvme0n1=
+
+* Phase 1: Environment Setup
+1. Boot the server using the **NixOS Minimal Live USB**.
+2. Set the keyboard layout:
+   #+begin_src bash
+   loadkeys de
+   #+end_src
+3. Ensure network connectivity to mbp2:
+   #+begin_src bash
+   ping -c 3 172.20.0.254
+   #+end_src
+
+* Phase 2: Partitioning & Bootloader
+** 1. Restore Partition Table (GPT)
+#+begin_src bash
+ssh ramge@172.20.0.254 "cat ~/sync/gh/NgarumaVTC/SchoolServerforAfrica/backup/2026-05-03_Debian/proxmox_gpt.bak" > /tmp/proxmox_gpt.bak
+sgdisk --load-backup=/tmp/proxmox_gpt.bak /dev/nvme0n1
+partprobe /dev/nvme0n1
+#+end_src
+
+** 2. Restore BIOS-Boot (p1)
+#+begin_src bash
+ssh ramge@172.20.0.254 "cat ~/sync/gh/NgarumaVTC/SchoolServerforAfrica/backup/2026-05-03_Debian/proxmox_boot_p1.img" | dd of=/dev/nvme0n1p1 status=progress
+#+end_src
+
+** 3. Restore EFI-Partition (p2)
+#+begin_src bash
+ssh ramge@172.20.0.254 "cat ~/sync/gh/NgarumaVTC/SchoolServerforAfrica/backup/2026-05-03_Debian/proxmox_efi_p2.img.zst" | zstd -d | dd of=/dev/nvme0n1p2 status=progress
+#+end_src
+
+* Phase 3: ZFS Data Recovery
+** 1. Create a fresh ZFS Pool
+#+begin_src bash
+# Use ashift=12 for modern NVMe drives
+zpool create -f -o ashift=12 -R /mnt rpool /dev/nvme0n1p3
+#+end_src
+
+** 2. Restore Data via ZFS Receive
+#+begin_src bash
+ssh ramge@172.20.0.254 "cat ~/sync/gh/NgarumaVTC/SchoolServerforAfrica/backup/2026-05-03_Debian/px1_zfs_fullbackup.zst" | zstd -d | zfs receive -F rpool
+#+end_src
+
+* Phase 4: Finalization
+1. Unmount and export the pool:
+   #+begin_src bash
+   zpool export rpool
+   #+end_src
+2. Reboot the system:
+   #+begin_src bash
+   reboot
+   #+end_src
+3. Remove the USB stick.
